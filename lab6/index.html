@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Формуляр читателя</title>
+    <link rel="stylesheet" href="normalize.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Формуляр читателя</h1>
+        <form class="form" id="registrationForm">
+            <label for="name">Имя:</label>
+            <input type="text" id="name" placeholder="Имя" required>
+
+            <label for="surname">Фамилия:</label>
+            <input type="text" id="surname" placeholder="Фамилия" required>
+
+            <label for="birthdate">Дата рождения:</label>
+            <input type="date" id="birthdate" placeholder="Дата рождения" required>
+
+            <label for="school">Школа, класс:</label>
+            <input type="text" id="school" placeholder="Школа, класс" required>
+
+            <label for="address">Адрес:</label>
+            <input type="text" id="address" placeholder="Адрес" required>
+
+            <label for="gender">Пол:</label>
+            <select id="gender" required>
+                <option value="">Выберите пол</option>
+                <option value="male">Мужской</option>
+                <option value="female">Женский</option>
+            </select>
+
+           <label for="phone">Телефон:</label>
+            <input type="tel" id="phone" placeholder="Телефон" required>
+
+            <label for="myCanvas">Подпись читателя:</label>
+            <canvas id="myCanvas" width="100" height="100" style="border:1px solid #000;">
+        Ваш браузер не поддерживает элемент холст.
+    </canvas>
+              <button type="button" onclick="submitForm()">Зарегистрироваться</button>
+        </form>
+        <br>
+       
+        <div id="output"></div>
+    </div>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var ctx = canvas.getContext('2d');
+        var painting = false;
+        canvas.addEventListener('mousedown', function(e) {
+            painting = true;
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+        });
+        canvas.addEventListener('mouseup', function() {
+            painting = false;
+        });
+        canvas.addEventListener('mousemove', function(e) {
+            if (painting) {
+                ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+                ctx.stroke();
+            }
+        });
+    </script>
+        <script>
+         function submitForm() {
+            var name = document.getElementById('name').value;
+            var surname = document.getElementById('surname').value;
+            var birthdate = document.getElementById('birthdate').value;
+             var school = document.getElementById('school').value;
+            var address = document.getElementById('address').value;
+            var gender = document.getElementById('gender').value;   
+            var phone = document.getElementById('phone').value;
+            var myCanvas = document.getElementById('myCanvas').value;
+
+
+            if (name && surname && birthdate && school && address && gender && phone && myCanvas) {
+
+                if (!validateSurname(surname)) {
+                    alert('Пожалуйста, введите корректную форму фамилии.');
+                    return;
+                }
+
+                if (!validatePhone(phone)) {
+                    alert('Пожалуйста, введите корректный номер телефона в формате 89504501234');
+                    return;
+                }
+
+                if (!validateName(name)) {
+                    alert('Пожалуйста, введите корректное имя, используя только символы кириллицы и латиницы.');
+                    return;
+                }
+
+                document.getElementById('registrationForm').reset();
+
+                var outputDiv = document.getElementById('output');
+
+                outputDiv.innerHTML = 'Имя: ' + name + '<br>Фамилия: ' + surname + '<br>Дата рождения: ' + birthdate + '<br>Школа, класс: ' + school +
+                    '<br>Адрес: ' + address +  '<br>Пол: ' + gender +
+                     + '<br>myCanvas: ' + myCanvas;
+            } else {
+                alert('Пожалуйста, заполните все поля регистрации.');
+            }
+        }
+
+        function validateName(name) {
+            var re = /^[A-Za-zА-Яа-яЁё\s]+$/;
+            return re.test(name);
+        }
+
+        function validateSurname(surname) {
+            var re = /^[A-Za-zА-Яа-яЁё\s]+$/;
+            return re.test(surname);
+        }
+
+        function validatePhone(phone) {
+            var re = /^\d{11}$/;
+            return re.test(phone);
+        }
+</script>
+</body>
+</html>
