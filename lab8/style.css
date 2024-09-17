@@ -1,0 +1,19 @@
+body {
+    width: 100%;
+    height: 100%;
+}
+
+.container {
+    background: none;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+table {
+    border: 3px dashed;
+}
+

@@ -1,0 +1,32 @@
+table {
+    border-collapse: collapse;
+    width: 50%;
+    margin: 20px;
+}
+
+table, th, td {
+    border: 2px solid black;
+}
+
+th, td {
+    padding: 50px;
+    text-align: center;
+}
+th{
+    background-color: antiquewhite;
+}
+.weekends {
+    color: red;
+}
+
+.holidays {
+    background-color:gold;
+    border: 3px solid red;
+}
+label{
+    font-size:x-large;
+    margin-left: 15px;
+}
+span{
+    margin-left: 15px;
+}
